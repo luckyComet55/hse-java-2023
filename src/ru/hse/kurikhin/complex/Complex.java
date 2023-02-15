@@ -1,58 +1,66 @@
 package ru.hse.kurikhin.complex;
 
-public class Complex {
-  private double A, B;
+import java.util.Scanner;
 
-  public Complex(double a, double b) {
-    A = a;
-    B = b;
+public class Complex {
+  private double a, b;
+
+  public Complex() {
+    this(0, 0);
   }
 
-  public double getA() { return A; }
-  public void setA(double a) { A = a; }
-  public double getB() { return B; }
-  public void setB(double b) { B = b; }
+  public Complex(double a, double b) {
+    this.a = a;
+    this.b = b;
+  }
+
+  public double getA() { return a; }
+  public void setA(double a) { this.a = a; }
+  public double getB() { return b; }
+  public void setB(double b) { this.b = b; }
 
   public Complex sumComplex(Complex other) {
-    return new Complex(this.A + other.A, this.B + other.B);
+    return new Complex(this.a + other.a, this.b + other.b);
   }
 
   public Complex productComplex(Complex other) {
     return new Complex(
-        this.A * other.A - this.B * other.B,
-        this.A * other.B + this.B * other.A
+        this.a * other.a - this.b * other.b,
+        this.a * other.b + this.b * other.a
     );
   }
 
   public void printRegular() {
-    if (A == 0 && B == 0) {
+    if (a == 0 && b == 0) {
       System.out.println("0");
     }
-    char signB = B >= 0 ? '+' : '-';
-    String out = String.format("%.3f %c %.3fi", A, signB, B);
+    char signB = b >= 0 ? '+' : '-';
+    String out = String.format("%.3f %c %.3fi", a, signB, Math.abs(b));
     System.out.println(out);
   }
 
   public void printTrigonometrical() {
-    if (A == 0 && B == 0) {
+    if (a == 0 && b == 0) {
       System.out.println("0");
     }
-    double modulo = Math.sqrt(Math.pow(A, 2.) + Math.pow(B, 2.));
-    double cosine = A / modulo;
-    double sine = B / modulo;
+    double modulo = Math.sqrt(Math.pow(a, 2.) + Math.pow(b, 2.));
+    double cosine = a / modulo;
+    double sine = b / modulo;
     char signSine = sine >= 0 ? '+' : '-';
-    String out = String.format("%.3f(%.3f %c %.3fi)", modulo, cosine, signSine, sine);
+    String out = String.format("%.3f(%.3f %c %.3fi)", modulo, cosine, signSine, Math.abs(sine));
     System.out.println(out);
   }
 
+  public static Complex inputComplex() {
+    System.out.println("Введите параметры комплексного числа:");
+    Scanner in = new Scanner(System.in);
+    double a = in.nextDouble();
+    double b = in.nextDouble();
+    return new Complex(a, b);
+  }
+
   public static void main(String[] args) {
-    Complex a = new Complex(2,3);
-    Complex b = new Complex(1, 7);
-    a.printRegular();
-    a.printTrigonometrical();
-    b.printRegular();
-    b.printTrigonometrical();
-    (a.sumComplex(b)).printRegular();
-    (a.productComplex(b)).printRegular();
+    Complex c = Complex.inputComplex();
+    c.printRegular();
   }
 }
