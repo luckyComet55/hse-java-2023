@@ -23,23 +23,25 @@ public class Complex {
   public double getB() { return b; }
   public void setB(double b) { this.b = b; }
 
-  public Complex sumComplex(Complex other) {
-    return new Complex(this.a + other.a, this.b + other.b);
+  public void addComplex(Complex other) {
+    this.a += other.a;
+    this.b += other.b;
   }
 
   public static Complex sum(Complex first, Complex second) {
-    return first.sumComplex(second);
+    return new Complex(first.a + second.a, first.b + second.b);
   }
 
   public static Complex product(Complex first, Complex second) {
-    return first.productComplex(second);
+    return new Complex(
+        first.a * second.a - first.b * second.b,
+        first.a * second.b + first.b * second.a
+    );
   }
 
-  public Complex productComplex(Complex other) {
-    return new Complex(
-        this.a * other.a - this.b * other.b,
-        this.a * other.b + this.b * other.a
-    );
+  public void multiplyComplex(Complex other) {
+    this.a = this.a * other.a - this.b * other.b;
+    this.b = this.a * other.b + this.b * other.a;
   }
 
   public void printRegular() {
