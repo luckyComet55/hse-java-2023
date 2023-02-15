@@ -39,6 +39,10 @@ public class Complex {
     System.out.println(out);
   }
 
+  public void printVector() {
+    System.out.print("(" + a + "," + b + ")");
+  }
+
   public void printTrigonometrical() {
     if (a == 0 && b == 0) {
       System.out.println("0");
