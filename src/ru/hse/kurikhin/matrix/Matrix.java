@@ -53,14 +53,28 @@ public class Matrix {
   public int getX() { return x; }
   public int getY() { return y; }
 
-
-
+  public static Matrix sum(Matrix first, Matrix second) throws IllegalArgumentException {
+    if (first.x != second.x || first.y != second.y) {
+      throw new IllegalArgumentException("Переданы матрицы разных размеров");
+    }
+    Matrix sum = new Matrix(first.x, first.y);
+    for (int i = 0; i < first.y; ++i) {
+      for (int j = 0; j < first.x; ++j) {
+        sum.matrix[i][j] = Complex.sum(first.matrix[i][j], second.matrix[i][j]);
+      }
+    }
+    return sum;
+  }
 
   public static void main(String[] args) {
     try {
-      Matrix matrix = Matrix.createEmptyMatrix();
-      Matrix.inputMatrix(matrix);
-      matrix.printMatrix();
+      Matrix matrix1 = Matrix.createEmptyMatrix();
+      Matrix.inputMatrix(matrix1);
+      matrix1.printMatrix();
+      Matrix matrix2 = Matrix.createEmptyMatrix();
+      Matrix.inputMatrix(matrix2);
+      matrix2.printMatrix();
+      (Matrix.sum(matrix1, matrix2)).printMatrix();
     } catch (IllegalArgumentException exception) {
       System.out.println(exception.getMessage());
     }
