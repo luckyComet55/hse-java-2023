@@ -27,6 +27,14 @@ public class Complex {
     return new Complex(this.a + other.a, this.b + other.b);
   }
 
+  public static Complex sum(Complex first, Complex second) {
+    return first.sumComplex(second);
+  }
+
+  public static Complex product(Complex first, Complex second) {
+    return first.productComplex(second);
+  }
+
   public Complex productComplex(Complex other) {
     return new Complex(
         this.a * other.a - this.b * other.b,
