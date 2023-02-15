@@ -1,7 +1,6 @@
 package ru.hse.kurikhin.matrix;
 
 import ru.hse.kurikhin.complex.Complex;
-
 import java.util.Scanner;
 
 public class Matrix {
@@ -18,11 +17,14 @@ public class Matrix {
     matrix = new Complex[x][y];
   }
 
-  public static Matrix inputMatrix() {
+  public static Matrix inputMatrix() throws IllegalArgumentException {
     Scanner in = new Scanner(System.in);
     System.out.println("Введите размеры матрицы (размер не может быть меньше либо равен нулю):");
     int x = in.nextInt();
     int y = in.nextInt();
+    if (x <= 0 || y <= 0) {
+      throw new IllegalArgumentException("Размерность матрицы не соответствует требованиям");
+    }
     Matrix matrix = new Matrix(x, y);
     System.out.println("Введите элементы матрицы:");
     for (int i = 0; i < y; ++i) {

@@ -9,6 +9,10 @@ public class Complex {
     this(0, 0);
   }
 
+  public Complex(double a) {
+    this(a, 0);
+  }
+
   public Complex(double a, double b) {
     this.a = a;
     this.b = b;
