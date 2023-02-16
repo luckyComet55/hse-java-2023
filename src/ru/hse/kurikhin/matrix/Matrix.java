@@ -83,16 +83,23 @@ public class Matrix {
     return product;
   }
 
+  public Matrix transform() {
+    Matrix transformed = new Matrix(y, x);
+    for (int i = 0; i < y; ++i) {
+      for (int j = 0; j < x; ++j) {
+        transformed.matrix[i][j] = matrix[j][i];
+      }
+    }
+    return transformed;
+  }
+
   public static void main(String[] args) {
     try {
       Matrix matrix1 = Matrix.createEmptyMatrix();
       Matrix.inputMatrix(matrix1);
       matrix1.printMatrix();
-      Matrix matrix2 = Matrix.createEmptyMatrix();
-      Matrix.inputMatrix(matrix2);
-      matrix2.printMatrix();
       System.out.println("Результат:");
-      (Matrix.product(matrix1, matrix2)).printMatrix();
+      (matrix1.transform()).printMatrix();
     } catch (IllegalArgumentException exception) {
       System.out.println(exception.getMessage());
     }
