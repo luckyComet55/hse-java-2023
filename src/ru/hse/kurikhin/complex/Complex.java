@@ -92,9 +92,10 @@ public class Complex {
     }
     double modulo = Math.sqrt(Math.pow(a, 2.) + Math.pow(b, 2.));
     double cosine = a / modulo;
+    double phi = Math.acos(cosine);
     double sine = b / modulo;
     char signSine = sine >= 0 ? '+' : '-';
-    String out = String.format("%.3f(%.3f %c %.3fi)", modulo, cosine, signSine, Math.abs(sine));
+    String out = String.format("%.3f(cos%.3f %c sin%.3fi)", modulo, phi, signSine, phi);
     System.out.println(out);
   }
 
@@ -112,6 +113,6 @@ public class Complex {
 
   public static void main(String[] args) {
     Complex c = Complex.inputComplex();
-    c.printRegular();
+    c.printTrigonometrical();
   }
 }
