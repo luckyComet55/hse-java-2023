@@ -30,36 +30,6 @@ public class Matrix {
   }
 
   /**
-   * @return возвращает пустую матрицу с заданным размером
-   * @throws IllegalArgumentException выбрасывает ошибку, если размеры матрицы несоответствуют требованиям
-   */
-  public static Matrix createEmptyMatrix() throws IllegalArgumentException {
-    Scanner in = new Scanner(System.in);
-    System.out.println("Введите размеры матрицы (размер не может быть меньше либо равен нулю):");
-    int x = in.nextInt();
-    int y = in.nextInt();
-    if (x <= 0 || y <= 0) {
-      throw new IllegalArgumentException("Размерность матрицы не соответствует требованиям");
-    }
-    return new Matrix(x, y);
-  }
-
-  /**
-   * @param matrix получает на вход матрицу класса Matrix, которую надо заполнить элементами
-   */
-  public static void inputMatrix(Matrix matrix) {
-    Scanner in = new Scanner(System.in);
-    System.out.println("Введите элементы матрицы:");
-    for (int i = 0; i < matrix.x; ++i) {
-      for (int j = 0; j < matrix.y; ++j) {
-        double a = in.nextDouble();
-        double b = in.nextDouble();
-        matrix.matrix[i][j] = new Complex(a, b);
-      }
-    }
-  }
-
-  /**
    * Выводит матрицу
    */
   public void printMatrix() {
@@ -83,6 +53,34 @@ public class Matrix {
    * @return возвращает размерность матрицы по Y
    */
   public int getY() { return y; }
+  
+  /**
+   * Возвращает элемент матрицы на позиции (x, y). Нумерация по каждой из координат начинается с 1
+   * @param x номер столбца
+   * @param y номер строки
+   * @return элемент на позиции (x, y) типа Complex
+   * @throws IllegalArgumentException выбрасывает, если позиция за пределами матрицы
+   */
+  public Complex getElement (int x, int y) throws IllegalArgumentException {
+    if (this.x < x || x <= 0 || this.y < y || y <= 0) {
+      throw new IllegalArgumentException("Неверные координаты");
+    }
+    return matrix[x - 1][y - 1];
+  }
+  
+  /**
+   * Устанавливает комплексное число на позиции (x, y). Нумерация по каждой из координат начинается с 1
+   * @param x номер столбца
+   * @param y номер строки
+   * @param toInsert комплескное число, которое надо вставить
+   * @throws IllegalArgumentException выбрасывает, если позиция за пределами матрицы
+   */
+  public void setElement (int x, int y, Complex toInsert) throws IllegalArgumentException {
+    if (this.x < x || x <= 0 || this.y < y || y <= 0) {
+      throw new IllegalArgumentException("Неверные координаты");
+    }
+    matrix[x - 1][y - 1] = toInsert;
+  }
   
   
   /**
@@ -149,15 +147,7 @@ public class Matrix {
   }
 
   public static void main(String[] args) {
-    try {
-      Matrix matrix1 = Matrix.createEmptyMatrix();
-      Matrix.inputMatrix(matrix1);
-      matrix1.printMatrix();
-      System.out.println("Результат:");
-      (matrix1.transform()).printMatrix();
-    } catch (IllegalArgumentException exception) {
-      System.out.println(exception.getMessage());
-    }
+  
   }
 
 }

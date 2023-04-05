@@ -1,5 +1,7 @@
 package ru.hse.kurikhin.complex;
 
+import ru.hse.kurikhin.input_output.IOHelper;
+
 import java.util.Scanner;
 
 public class Complex {
@@ -80,20 +82,8 @@ public class Complex {
     System.out.println(out);
   }
 
-  /**
-   * Ввод комплексного числа
-   * @return комплексное число класса Complex
-   */
-  public static Complex inputComplex() {
-    System.out.println("Введите параметры комплексного числа:");
-    Scanner in = new Scanner(System.in);
-    double a = in.nextDouble();
-    double b = in.nextDouble();
-    return new Complex(a, b);
-  }
-
   public static void main(String[] args) {
-    Complex c = Complex.inputComplex();
+    Complex c = IOHelper.inputComplex();
     c.printTrigonometrical();
   }
 }
