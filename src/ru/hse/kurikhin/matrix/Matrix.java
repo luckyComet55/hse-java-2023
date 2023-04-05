@@ -30,19 +30,6 @@ public class Matrix {
   }
 
   /**
-   * Выводит матрицу
-   */
-  public void printMatrix() {
-    for (int i = 0; i < x; ++i) {
-      for (int j = 0; j < y; ++j) {
-        matrix[i][j].printVector();
-        System.out.print(' ');
-      }
-      System.out.println();
-    }
-  }
-
-  /**
    * Геттер для X
    * @return возвращает размерность матрицы по X
    */
@@ -145,9 +132,4 @@ public class Matrix {
     y = transformed.y;
     return this;
   }
-
-  public static void main(String[] args) {
-  
-  }
-
 }
