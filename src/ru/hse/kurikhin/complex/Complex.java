@@ -26,42 +26,23 @@ public class Complex {
   /**
    * Прибавление к себе переданного комплексного числа
    * @param other комплексное число класса Complex
+   * @return возвращает себя после прибавления
    */
-  public void addComplex(Complex other) {
-    this.a += other.a;
-    this.b += other.b;
-  }
-
-  /**
-   * Сумма двух комплексных чисел класса Complex
-   * @param first комплексное число класса Complex
-   * @param second комплексное число класса Complex
-   * @return комплексное число результат сложения
-   */
-  public static Complex sum(Complex first, Complex second) {
-    return new Complex(first.a + second.a, first.b + second.b);
-  }
-
-  /**
-   * Произведение двух комплексных чисел
-   * @param first комплексное число класса Complex
-   * @param second комплексное число класса Complex
-   * @return комплексное число результат произведения
-   */
-  public static Complex product(Complex first, Complex second) {
-    return new Complex(
-        first.a * second.a - first.b * second.b,
-        first.a * second.b + first.b * second.a
-    );
+  public Complex add(Complex other) {
+    a += other.a;
+    b += other.b;
+    return this;
   }
 
   /**
    * Умножение себя на переданное комплексное число класса Complex
    * @param other комплексное число класса Complex
+   * @return возвращает себя после перемножения
    */
-  public void multiplyComplex(Complex other) {
-    this.a = this.a * other.a - this.b * other.b;
-    this.b = this.a * other.b + this.b * other.a;
+  public Complex multiply(Complex other) {
+    a = a * other.a - b * other.b;
+    b = a * other.b + b * other.a;
+    return this;
   }
 
   /**

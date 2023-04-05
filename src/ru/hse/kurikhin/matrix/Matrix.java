@@ -6,12 +6,24 @@ import java.util.Scanner;
 public class Matrix {
   private int x, y;
   private Complex[][] matrix;
-
+  
+  /**
+   * Конструирует дефолтную матрицу размером 1x1
+   */
   public Matrix() {
     this(1, 1);
   }
-
-  public Matrix(int x, int y) {
+  
+  /**
+   * Конструирует матрицу с переданным размером
+   * @param x количество строк
+   * @param y количество столбцов
+   * @throws IllegalArgumentException выбрасывает, если одна их переменных не положительна
+   */
+  public Matrix(int x, int y) throws IllegalArgumentException {
+    if (x <= 0 || y <= 0) {
+      throw new IllegalArgumentException("Размерность матрицы не соответствует требованиям");
+    }
     this.x = x;
     this.y = y;
     matrix = new Complex[x][y];
@@ -71,54 +83,57 @@ public class Matrix {
    * @return возвращает размерность матрицы по Y
    */
   public int getY() { return y; }
-
+  
+  
   /**
-   * Сумма двух матриц одинаковых размеров
-   * @param first матрица класса Matrix
-   * @param second матрица класса Matrix
-   * @return матрица - результат суммы матриц
-   * @throws IllegalArgumentException выбрасывается, если переданные матрицы разных размеров
+   * Добавляет к себе переданную в аргументе матрицу
+   * @param other матрица класса Matrix
+   * @return возвращает себя после прибавления
+   * @throws IllegalArgumentException выбрасывается, если матрица объекта other имеет другие размеры
    */
-  public static Matrix sum(Matrix first, Matrix second) throws IllegalArgumentException {
-    if (first.x != second.x || first.y != second.y) {
+  public Matrix add(Matrix other) throws IllegalArgumentException {
+    if (x != other.x || y != other.y) {
       throw new IllegalArgumentException("Переданы матрицы разных размеров");
     }
-    Matrix sum = new Matrix(first.x, first.y);
-    for (int i = 0; i < first.x; ++i) {
-      for (int j = 0; j < first.y; ++j) {
-        sum.matrix[i][j] = Complex.sum(first.matrix[i][j], second.matrix[i][j]);
+    
+    for (int i = 0; i < x; ++i) {
+      for (int j = 0; j < y; ++j) {
+        matrix[i][j].add(other.matrix[i][j]);
       }
     }
-    return sum;
+    return this;
   }
-
+  
   /**
-   * Перемножение матриц
-   * @param first матрица класса Matrix
-   * @param second матрица класса Matrix
-   * @return возвращает матрицу результат произведения, размер соответсвует математическим правилам
-   * @throws IllegalArgumentException выбрасывается, если перемножение невозможно
+   * Производит умножение хранимой матрицы не переданную
+   * @param other матрица класса Matrix
+   * @return возвращает себя после перемножения
+   * @throws IllegalArgumentException выбрасывает, если перемножение невозможно
    */
-  public static Matrix product(Matrix first, Matrix second) throws IllegalArgumentException {
-    if (first.y != second.x) {
+  public Matrix multiply (Matrix other) throws IllegalArgumentException {
+    if (y != other.x) {
       throw new IllegalArgumentException("Перемножение матриц с данными размерами невозможно");
     }
-    Matrix product = new Matrix(first.x, second.y);
+    Matrix product = new Matrix(x, other.y);
+  
     for (int i = 0; i < product.x; ++i) {
       for (int j = 0; j < product.y; ++j) {
         Complex res = new Complex();
-        for (int k = 0; k < first.y; ++k) {
-          res.addComplex(Complex.product(first.matrix[i][k], second.matrix[k][j]));
+        for (int k = 0; k < y; ++k) {
+          res.add(matrix[i][k].add(other.matrix[k][j]));
         }
         product.matrix[i][j] = res;
       }
     }
-    return product;
+    matrix = product.matrix;
+    x = product.x;
+    y = product.y;
+    return this;
   }
 
   /**
-   * Транспониурет матрицу, не изменяет исходную
-   * @return матрица результат транспонирования
+   * Транспониурет матрицу
+   * @return возвращает себя после транспонирования
    */
   public Matrix transform() {
     Matrix transformed = new Matrix(y, x);
@@ -127,7 +142,10 @@ public class Matrix {
         transformed.matrix[i][j] = matrix[j][i];
       }
     }
-    return transformed;
+    matrix = transformed.matrix;
+    x = transformed.x;
+    y = transformed.y;
+    return this;
   }
 
   public static void main(String[] args) {
