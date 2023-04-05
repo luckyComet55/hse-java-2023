@@ -9,5 +9,7 @@ public class EntryPoint {
   public static void main(String[] args) {
     Matrix matrix = IOHelper.inputMatrix();
     IOHelper.printMatrix(matrix);
+    System.out.println("Transformed:");
+    IOHelper.printMatrix(matrix.transform());
   }
 }
